@@ -10,5 +10,5 @@ configMapGenerator:
       - MODEL_NAME=distilbert-base-uncased-finetuned-sst-2-english 
       - LOG_LEVEL=WARNING 
 images: 
-  - name: docker.io/Vardhaa/sentiment-api 
+  - name: docker.io/vardhanv18/sentiment-api 
     newTag: prod-latest 
