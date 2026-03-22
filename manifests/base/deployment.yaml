@@ -1,0 +1,41 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: sentiment-api 
+  labels: 
+    app: sentiment-api 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: sentiment-api 
+  template: 
+    metadata: 
+      labels: 
+        app: sentiment-api 
+    spec: 
+      containers: 
+        - name: sentiment-api 
+          image: docker.io/Vardhaa/sentiment-api:latest 
+          ports: 
+            - containerPort: 8080 
+          envFrom: 
+            - configMapRef: 
+                name: sentiment-api-config 
+          resources: 
+            requests: 
+              cpu: "250m" 
+              memory: "512Mi" 
+            limits: 
+              cpu: "500m" 
+              memory: "1Gi" 
+          livenessProbe: 
+            httpGet: 
+              path: /health 
+              port: 8080 
+            initialDelaySeconds: 60 
+          readinessProbe: 
+            httpGet: 
+              path: /ready 
+              port: 8080 
+            initialDelaySeconds: 60 

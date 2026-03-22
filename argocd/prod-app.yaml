@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1 
+kind: Application 
+metadata: 
+  name: sentiment-api-prod 
+  namespace: openshift-gitops 
+spec: 
+  project: default 
+  source: 
+    repoURL: https://github.com/Vardhaa/mlops-gitops-openshift 
+    targetRevision: main 
+    path: manifests/overlays/prod 
+  destination: 
+    server: https://kubernetes.default.svc 
+    namespace: ocp-prod-1 
+  syncPolicy: 
+    automated: 
+      prune: true 
+      selfHeal: true 
+    syncOptions: 
+      - CreateNamespace=true 

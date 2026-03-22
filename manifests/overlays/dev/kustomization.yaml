@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1 
+kind: Kustomization 
+namespace: ocp-dev-1 
+resources: 
+  - ../../base 
+configMapGenerator: 
+  - name: sentiment-api-config 
+    literals: 
+      - APP_ENV=dev 
+      - MODEL_NAME=distilbert-base-uncased-finetuned-sst-2-english 
+      - LOG_LEVEL=DEBUG 
+images: 
+  - name: docker.io/Vardhaa/sentiment-api 
+    newTag: dev-latest 

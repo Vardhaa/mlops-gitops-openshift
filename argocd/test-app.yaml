@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1 
+kind: Application 
+metadata: 
+  name: sentiment-api-test 
+  namespace: openshift-gitops 
+spec: 
+  project: default 
+  source: 
+    repoURL: https://github.com/Vardhaa/mlops-gitops-openshift 
+    targetRevision: main 
+    path: manifests/overlays/test 
+  destination: 
+    server: https://kubernetes.default.svc 
+    namespace: ocp-test-1 
+  syncPolicy: 
+    automated: 
+      prune: true 
+      selfHeal: true 
+    syncOptions: 
+      - CreateNamespace=true 
